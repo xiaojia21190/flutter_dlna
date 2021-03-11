@@ -69,6 +69,7 @@ class DlnaAndroidService extends DlnaService {
   //启动和播放
   @override
   Future<void> startAndPlay() async {
+    await dlnaManager.actPlay();
     print("you should use actSetVideoUrl");
   }
 

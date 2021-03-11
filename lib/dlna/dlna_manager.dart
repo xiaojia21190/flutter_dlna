@@ -1,7 +1,5 @@
 import 'dart:async';
 
-
-
 import 'package:flutter_dlna/dlna/dlna_connectivity.dart';
 
 import 'dlna.dart';
@@ -28,8 +26,7 @@ class DLNAManager {
 
   DLNAManager() {
     _deviceManger = DiscoveryDeviceManger();
-    _contentParser = DiscoveryContentParser(
-        processAlive: (String usn, String location, String cache) {
+    _contentParser = DiscoveryContentParser(processAlive: (String usn, String location, String cache) {
       _deviceManger.alive(usn, location, cache);
     }, processByeBye: (String usn) {
       _deviceManger.byeBye(usn);
@@ -111,18 +108,15 @@ class DLNAManager {
     _soapController.release();
   }
 
-  Future<DLNAActionResult<String>> actSetVideoUrl(
-      VideoObject didlObject) async {
+  Future<DLNAActionResult<String>> actSetVideoUrl(VideoObject didlObject) async {
     return await _soapController.setUrl(didlObject);
   }
 
-  Future<DLNAActionResult<String>> actSetAudioUrl(
-      AudioObject didlObject) async {
+  Future<DLNAActionResult<String>> actSetAudioUrl(AudioObject didlObject) async {
     return await _soapController.setUrl(didlObject);
   }
 
-  Future<DLNAActionResult<String>> actSetImageUrl(
-      ImageObject didlObject) async {
+  Future<DLNAActionResult<String>> actSetImageUrl(ImageObject didlObject) async {
     return await _soapController.setUrl(didlObject);
   }
 
@@ -166,8 +160,7 @@ class DLNAManager {
     return await _soapController.getTransportActions();
   }
 
-  Future<DLNAActionResult<DeviceCapabilities>>
-      actGetDeviceCapabilities() async {
+  Future<DLNAActionResult<DeviceCapabilities>> actGetDeviceCapabilities() async {
     return await _soapController.getDeviceCapabilities();
   }
 
@@ -204,10 +197,5 @@ class DeviceRefresher {
 
   Function(PositionInfo positionInfo) onPlayProgress;
 
-  DeviceRefresher(
-      {this.onDeviceAdd,
-      this.onDeviceRemove,
-      this.onDeviceUpdate,
-      this.onSearchError,
-      this.onPlayProgress});
+  DeviceRefresher({this.onDeviceAdd, this.onDeviceRemove, this.onDeviceUpdate, this.onSearchError, this.onPlayProgress});
 }
