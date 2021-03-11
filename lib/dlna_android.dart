@@ -47,6 +47,7 @@ class DlnaAndroidService extends DlnaService {
     searchTimer?.cancel();
     searchTimer = Timer(Duration(milliseconds: 5000), () {
       dlnaManager.stopSearch();
+      this.searchCallback([]);
     });
   }
 
