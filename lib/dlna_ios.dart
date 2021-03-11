@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_dlna/dlna_interface.dart';
 
-class DlnaIosService extends DlnaService{
+class DlnaIosService extends DlnaService {
   MethodChannel _channel = const MethodChannel('flutter_dlna');
 
   Function searchCallback;
@@ -25,17 +25,17 @@ class DlnaIosService extends DlnaService{
 
   //设置视频地址/设置视频名称
   @override
-  Future<void> setVideoUrlAndName(String url,String name) async {
-    String result = await _channel.invokeMethod('setVideoUrl',url);
+  Future<void> setVideoUrlAndName(String url, String name) async {
+    String result = await _channel.invokeMethod('setVideoUrl', url);
     print(result);
-    result = await _channel.invokeMethod('setVideoName',name);
+    result = await _channel.invokeMethod('setVideoName', name);
     print(result);
   }
 
   //设置设备
   @override
   Future<void> setDevice(String uuid) async {
-    String result = await _channel.invokeMethod('setDevice',uuid);
+    String result = await _channel.invokeMethod('setDevice', uuid);
     print(result);
   }
 
@@ -45,11 +45,11 @@ class DlnaIosService extends DlnaService{
     String result = await _channel.invokeMethod('startAndPlay');
     print(result);
   }
+
   //停止
   @override
   Future<void> stop() async {
     String result = await _channel.invokeMethod('stop');
     print(result);
   }
-
 }

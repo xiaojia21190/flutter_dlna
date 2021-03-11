@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 
-abstract class DlnaService{
+abstract class DlnaService {
   Function searchCallback;
 
   @protected
@@ -17,7 +16,7 @@ abstract class DlnaService{
 
   //设置视频地址和名称
   @protected
-  Future<void> setVideoUrlAndName(String url,String name);
+  Future<void> setVideoUrlAndName(String url, String name);
 
   //设置设备
   @protected
@@ -25,10 +24,9 @@ abstract class DlnaService{
 
   //启动和播放
   @protected
-  Future<void> startAndPlay() ;
+  Future<void> startAndPlay();
 
   //停止
   @protected
   Future<void> stop();
-
 }

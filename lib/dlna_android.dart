@@ -13,8 +13,8 @@ class DlnaAndroidService extends DlnaService {
 
   Function searchCallback;
 
-  List devices = List();
-  List<DLNADevice> deviceList = List();
+  List devices = [];
+  List<DLNADevice> deviceList = [];
 
   @override
   Future<void> init() async {}
@@ -22,30 +22,22 @@ class DlnaAndroidService extends DlnaService {
   @override
   void setSearchCallback(Function searchCallback) {
     this.searchCallback = searchCallback;
-    dlnaManager.setRefresher(DeviceRefresher(
-        onDeviceUpdate: (DLNADevice device) {
-          searchCallback(this.devices);
-        },
-        onDeviceAdd: (DLNADevice device) {
-          if (deviceList.contains(device)) {
-            searchCallback(this.devices);
-            return;
-          }
-          Map map = Map();
-          map["name"] = device.deviceName;
-          map["id"] = device.uuid;
-          devices.add(map);
-          deviceList.add(device);
-          searchCallback(this.devices);
-        },
-        onDeviceRemove: (DLNADevice device) {
-          this.devices =
-              devices.where((element) => element["id"] != device.uuid).toList();
-          this.deviceList = deviceList
-              .where((element) => element.uuid != device.uuid)
-              .toList();
-          searchCallback(this.devices);
-        }));
+    dlnaManager.setRefresher(DeviceRefresher(onDeviceUpdate: (DLNADevice device) {
+      searchCallback(this.devices);
+    }, onDeviceAdd: (DLNADevice device) {
+      searchTimer?.cancel();
+      if (deviceList.contains(device)) return;
+      Map map = Map();
+      map["name"] = device.deviceName;
+      map["id"] = device.uuid;
+      devices.add(map);
+      deviceList.add(device);
+      searchCallback(this.devices);
+    }, onDeviceRemove: (DLNADevice device) {
+      this.devices = devices.where((element) => element["id"] != device.uuid).toList();
+      this.deviceList = deviceList.where((element) => element.uuid != device.uuid).toList();
+      searchCallback(this.devices);
+    }));
   }
 
   //搜索设备
@@ -62,16 +54,14 @@ class DlnaAndroidService extends DlnaService {
   @override
   Future<void> setVideoUrlAndName(String url, String name) async {
     var videoObject = VideoObject(name, url, "http-get:*:video/*");
-    DLNAActionResult<String> result =
-        await dlnaManager.actSetVideoUrl(videoObject);
+    DLNAActionResult<String> result = await dlnaManager.actSetVideoUrl(videoObject);
     print(result.result);
   }
 
   //设置设备
   @override
   Future<void> setDevice(String uuid) async {
-    DLNADevice device =
-        deviceList.firstWhere((element) => element.uuid == uuid);
+    DLNADevice device = deviceList.firstWhere((element) => element.uuid == uuid);
     print(device);
     dlnaManager.setDevice(device);
   }
