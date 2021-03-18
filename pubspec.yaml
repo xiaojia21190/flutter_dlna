@@ -1,6 +1,6 @@
 name: flutter_dlna
 description: 一款真正可以的DLNA视频投屏插件
-version: 0.0.1+1
+version: 0.0.1
 homepage: https://github.com/515445681/flutter_dlna
 
 environment:
@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
   connectivity: ^3.0.2
   xml2json: ^5.0.0
-  shared_preferences: ^2.0.3
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:
